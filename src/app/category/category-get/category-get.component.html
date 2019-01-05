@@ -1,0 +1,31 @@
+<table class="table table-hover">
+    <thead>
+      <tr>
+          <td>Name</td>
+          <td colspan="2">Actions</td>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <tr *ngFor="let category of categories">
+          <td (click)=onSelect(category) >{{ category.name }}</td>
+          <td><button mat-raised-button [routerLink]="['edit', category._id]" color="primary" >Edit</button></td>
+          <td><a (click) = "deleteCategory(category._id, category.name)" class="btn btn-danger">Delete</a></td>
+      </tr>
+    </tbody>
+  </table>
+<button style="width:25%" mat-raised-button routerLink="/category/create" color="primary"  style="padding-right:10px">
+  <mat-icon>add</mat-icon> Category</button>
+<div *ngIf="selectedCategory" class="subcategories">
+  <p style="font-weight: 500; font-size: 28px;">{{selectedCategory.name}} subcategories:</p>
+    <ul>
+        <li *ngFor="let subcategory of selectedCategory.subcategories">
+            <p>{{ subcategory.name }}</p>
+            <button style="width:25%" mat-raised-button [routerLink]="['/category/subcategory/edit', subcategory._id]" color="primary"  style="padding-right:10px">Edit</button>
+            <a  style="width:15%" (click) = "deleteSubcategory(subcategory._id)" class="btn btn-danger" style="padding-right:10px">Delete</a>
+        </li>
+    </ul>
+  <button style="width:25%" mat-raised-button routerLink="/category/subcategory/create/{{selectedCategory._id}}" color="primary"  style="padding-right:10px">
+      <mat-icon>add</mat-icon> {{selectedCategory.name}} subcategory</button>
+
+</div>

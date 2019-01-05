@@ -1,0 +1,33 @@
+<table class="table table-hover">
+    <thead>
+      <tr>
+          <td>Name</td>
+          <td>System Name</td>
+          <td colspan="2">Actions</td>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <tr *ngFor="let parameter of parameters">
+          <td (click)=onSelect(parameter) >{{ parameter.name }}</td>
+          <td>{{ parameter.systemName }}</td>
+          <td><button mat-raised-button [routerLink]="['edit', parameter._id]" color="primary" >Edit</button></td>
+          <td><a (click) = "deleteParameter(parameter._id, parameter.name)" class="btn btn-danger">Delete</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <button style="width:25%" mat-raised-button routerLink="/parameter/create" color="primary"  style="padding-right:10px">
+    <mat-icon>add</mat-icon> parameter</button>
+  <div *ngIf="selectedParameter" class="subcategories">
+    <p style="font-weight: 500; font-size: 28px;">{{selectedParameter.name}} options:</p>
+      <ul>
+          <li *ngFor="let option of selectedParameter.options">
+              <p>{{ option.name }}</p>
+              <button style="width:25%" mat-raised-button [routerLink]="['/parameter/option/edit', option._id]" color="primary"  style="padding-right:10px">Edit</button>
+              <a  style="width:15%" (click) = "deleteOption(option._id)" class="btn btn-danger" style="padding-right:10px">Delete</a>
+          </li>
+      </ul>
+    <button style="width:25%" mat-raised-button routerLink="/parameter/option/create/{{selectedParameter._id}}" color="primary"  style="padding-right:10px">
+        <mat-icon>add</mat-icon> {{selectedParameter.name}} option</button>
+  
+  </div>
